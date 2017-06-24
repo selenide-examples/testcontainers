@@ -3,11 +3,13 @@ package org.selenide.examples;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.*;
 
+@Ignore
 public class GoogleTest {
   @Test
   public void search() {
