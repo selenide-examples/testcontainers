@@ -14,6 +14,7 @@ import org.testcontainers.containers.BrowserWebDriverContainer;
 
 import java.io.File;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Selenide.*;
 
 public class GoogleTestWithFirefox {
@@ -38,15 +39,7 @@ public class GoogleTestWithFirefox {
   @Test
   public void search() {
     open("https://google.com/");
-    $(By.name("q")).val("Selenide").pressEnter();
-    $$("#ires .g").shouldHave(CollectionCondition.sizeGreaterThan(5));
-
-    for (int i = 0; i < 5; i++) {
-      SelenideElement link = $("#ires .g", i).find("a");
-      System.out.println(link.attr("href"));
-      link.click();
-      back();
-    }
-    sleep(1000);
+    $(By.name("q")).val("codeborne").pressEnter();
+    $$("#ires .g").shouldHave(sizeGreaterThan(5));
   }
 }
