@@ -12,6 +12,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Selenide.*;
 
 public class GoogleTestWithDockerNoVideo {
@@ -33,9 +34,9 @@ public class GoogleTestWithDockerNoVideo {
 
   @Test
   public void search() {
-    open("https://google.com/");
+    open("https://www.google.com/ncr");
     $(By.name("q")).val("Selenide").pressEnter();
-    $$("#ires .g").shouldHave(CollectionCondition.sizeGreaterThan(5));
+    $$("#ires .g").shouldHave(sizeGreaterThan(5));
 
     for (int i = 0; i < 5; i++) {
       SelenideElement link = $("#ires .g", i).find("a");

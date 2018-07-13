@@ -1,6 +1,5 @@
 package org.selenide.examples;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.After;
@@ -14,6 +13,7 @@ import org.testcontainers.containers.BrowserWebDriverContainer;
 
 import java.io.File;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Selenide.*;
 
 public class GoogleTestWithDocker {
@@ -36,9 +36,9 @@ public class GoogleTestWithDocker {
 
   @Test
   public void search() {
-    open("https://google.com/");
+    open("https://www.google.com/ncr/");
     $(By.name("q")).val("Selenide").pressEnter();
-    $$("#ires .g").shouldHave(CollectionCondition.sizeGreaterThan(5));
+    $$("#ires .g").shouldHave(sizeGreaterThan(5));
 
     for (int i = 0; i < 5; i++) {
       SelenideElement link = $("#ires .g", i).find("a");

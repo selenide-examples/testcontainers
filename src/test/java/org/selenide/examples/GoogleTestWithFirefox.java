@@ -1,7 +1,5 @@
 package org.selenide.examples;
 
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +18,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class GoogleTestWithFirefox {
   @Rule
   public BrowserWebDriverContainer browser =
-      new BrowserWebDriverContainer("selenium/standalone-firefox-debug:3.3.0")
+      new BrowserWebDriverContainer("selenium/standalone-firefox-debug:3.13.0")
           .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("build"))
           .withDesiredCapabilities(DesiredCapabilities.firefox());
 
@@ -38,7 +36,7 @@ public class GoogleTestWithFirefox {
 
   @Test
   public void search() {
-    open("https://google.com/");
+    open("https://www.google.com/ncr");
     $(By.name("q")).val("codeborne").pressEnter();
     $$("#ires .g").shouldHave(sizeGreaterThan(5));
   }
