@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class GoogleTestWithFirefox {
   @Rule
   public BrowserWebDriverContainer browser =
-      new BrowserWebDriverContainer("selenium/standalone-firefox-debug:3.13.0")
+      new BrowserWebDriverContainer()
           .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("build"))
           .withDesiredCapabilities(DesiredCapabilities.firefox());
 
