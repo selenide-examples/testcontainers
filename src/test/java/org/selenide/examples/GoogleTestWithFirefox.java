@@ -36,7 +36,7 @@ public class GoogleTestWithFirefox {
 
   @Test
   public void search() {
-    open("https://www.google.com/ncr");
+    open("https://www.google.com/en");
     $(By.name("q")).val("codeborne").pressEnter();
     $$("#ires .g").shouldHave(sizeGreaterThan(5));
   }

@@ -34,7 +34,7 @@ public class GoogleTestWithDockerNoVideo {
 
   @Test
   public void search() {
-    open("https://www.google.com/ncr");
+    open("https://www.google.com/en");
     $(By.name("q")).val("Selenide").pressEnter();
     $$("#ires .g").shouldHave(sizeGreaterThan(5));
 
