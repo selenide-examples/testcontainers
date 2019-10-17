@@ -21,7 +21,7 @@ public class GoogleTestWithDocker {
   public BrowserWebDriverContainer chrome =
       new BrowserWebDriverContainer()
           .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("build"))
-          .withDesiredCapabilities(DesiredCapabilities.chrome());
+          .withCapabilities(DesiredCapabilities.chrome());
 
   @Before
   public void setUp() {
@@ -36,12 +36,12 @@ public class GoogleTestWithDocker {
 
   @Test
   public void search() {
-    open("https://www.google.com/en");
+    open("https://google.com/ncr");
     $(By.name("q")).val("Selenide").pressEnter();
-    $$("#ires .g").shouldHave(sizeGreaterThan(5));
+    $$("#res .g").shouldHave(sizeGreaterThan(5));
 
     for (int i = 0; i < 5; i++) {
-      SelenideElement link = $("#ires .g", i).find("a");
+      SelenideElement link = $("#res .g", i).find("a");
       System.out.println(link.attr("href"));
       link.click();
       back();

@@ -20,7 +20,7 @@ public class GoogleTestWithFirefox {
   public BrowserWebDriverContainer browser =
       new BrowserWebDriverContainer()
           .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("build"))
-          .withDesiredCapabilities(DesiredCapabilities.firefox());
+          .withCapabilities(DesiredCapabilities.firefox());
 
   @Before
   public void setUp() {
@@ -36,8 +36,8 @@ public class GoogleTestWithFirefox {
 
   @Test
   public void search() {
-    open("https://www.google.com/en");
+    open("https://google.com/ncr");
     $(By.name("q")).val("codeborne").pressEnter();
-    $$("#ires .g").shouldHave(sizeGreaterThan(5));
+    $$("#res .g").shouldHave(sizeGreaterThan(5));
   }
 }
