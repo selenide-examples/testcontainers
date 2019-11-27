@@ -36,9 +36,9 @@ public class GoogleTestWithDockerNoVideo {
   public void search() {
     open("https://google.com/ncr");
     $(By.name("q")).val("Selenide").pressEnter();
-    $$("#res .g").shouldHave(sizeGreaterThan(5));
+    $$("#res .g").shouldHave(sizeGreaterThan(3));
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 3; i++) {
       SelenideElement link = $("#res .g", i).find("a");
       System.out.println(link.attr("href"));
       link.click();
