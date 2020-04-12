@@ -4,8 +4,9 @@ defaultTasks 'clean', 'test'
 
 dependencies {
   testCompile 'junit:junit:4.12'
-  testCompile 'com.codeborne:selenide:5.5.0'
-  testCompile 'org.testcontainers:selenium:1.12.3'
+  testCompile 'org.testng:testng:7.1.0'
+  testCompile 'com.codeborne:selenide:5.10.0'
+  testCompile 'org.testcontainers:selenium:1.13.0'
 }
 
 task libs(type: Sync) {
