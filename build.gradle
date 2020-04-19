@@ -3,10 +3,11 @@ apply plugin: 'java'
 defaultTasks 'clean', 'test'
 
 dependencies {
-  testCompile 'junit:junit:4.12'
+  testCompile 'junit:junit:4.13'
   testCompile 'org.testng:testng:7.1.0'
-  testCompile 'com.codeborne:selenide:5.10.0'
-  testCompile 'org.testcontainers:selenium:1.13.0'
+  testCompile 'com.codeborne:selenide:5.11.0'
+  testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.30'
+  testCompile 'org.testcontainers:selenium:1.14.0'
 }
 
 task libs(type: Sync) {
