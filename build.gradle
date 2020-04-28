@@ -8,6 +8,7 @@ dependencies {
   testCompile 'com.codeborne:selenide:5.11.1'
   testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.30'
   testRuntimeOnly 'com.browserup:browserup-proxy-core:2.0.1'
+  testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.30'
   testCompile 'org.testcontainers:selenium:1.14.1'
 }
 
