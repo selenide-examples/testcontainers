@@ -6,14 +6,14 @@ dependencies {
   testCompile 'junit:junit:4.13'
   testCompile 'org.testng:testng:7.1.0'
   testCompile 'com.codeborne:selenide:5.12.1'
-  testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.30'
-  testRuntimeOnly 'com.browserup:browserup-proxy-core:2.0.1'
-  testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.30'
+  testRuntime 'org.slf4j:slf4j-simple:1.7.30'
+  testRuntime 'com.browserup:browserup-proxy-core:2.0.1'
   testCompile 'org.testcontainers:selenium:1.14.2'
 }
 
 task libs(type: Sync) {
   from configurations.testCompile
+  from configurations.testRuntime
   into "$buildDir/lib"
 }
 
