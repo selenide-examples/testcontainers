@@ -7,3 +7,8 @@ Look for `GoogleTestWithDocker` to see how to run Docker with just a single anno
 For reference, look for `GoogleTest` to see how the same test runs without Docker.
 
 [![Build Status](https://travis-ci.org/selenide-examples/testcontainers.png)](https://travis-ci.org/selenide-examples/testcontainers)
+
+
+## How to run tests
+
+> ./gradlew test --rerun-tasks
