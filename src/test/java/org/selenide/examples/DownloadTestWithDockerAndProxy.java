@@ -59,9 +59,9 @@ public class DownloadTestWithDockerAndProxy {
 
     @Test
     public void search() throws FileNotFoundException {
-        open("https://mvnrepository.com/artifact/com.codeborne/selenide/5.11.1");
+        open("https://mvnrepository.com/artifact/com.codeborne/selenide/5.17.0");
 
-        File selenideJar = $("table.grid a.vbtn").download(withName("selenide-5.11.1.jar"));
+        File selenideJar = $("table.grid a.vbtn").download(withName("selenide-5.17.0.jar"));
         assertTrue(selenideJar.exists());
     }
 

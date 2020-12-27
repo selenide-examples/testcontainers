@@ -1,49 +1,47 @@
-package org.selenide.examples.testng;
+package org.selenide.examples;
 
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
 import java.io.File;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.back;
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.*;
 
-public class GoogleTestWithDockerTestNG {
+public class SearchTestWithDocker {
+  @Rule
   public BrowserWebDriverContainer chrome =
       new BrowserWebDriverContainer()
           .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("build"))
           .withCapabilities(DesiredCapabilities.chrome());
 
-  @BeforeClass
-  public void startContainer() {
-    chrome.start();
-    WebDriverRunner.setWebDriver(chrome.getWebDriver());
+  @Before
+  public void setUp() {
+    RemoteWebDriver driver = chrome.getWebDriver();
+    WebDriverRunner.setWebDriver(driver);
   }
 
-  @AfterClass
-  public void stopContainer() {
+  @After
+  public void tearDown() {
     WebDriverRunner.closeWebDriver();
-    chrome.stop();
   }
 
   @Test
   public void search() {
-    open("https://google.com/ncr");
+    open("https://duckduckgo.com/");
     $(By.name("q")).val("Selenide").pressEnter();
-    $$("#res .g").shouldHave(sizeGreaterThan(3));
+    $$(".results .result").shouldHave(sizeGreaterThan(3));
 
     for (int i = 0; i < 3; i++) {
-      SelenideElement link = $("#res .g", i).find("a");
+      SelenideElement link = $(".results .result", i).find("a");
       System.out.println(link.attr("href"));
       link.click();
       back();

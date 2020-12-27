@@ -1,6 +1,5 @@
 package org.selenide.examples;
 
-import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.After;
 import org.junit.Before;
@@ -16,16 +15,17 @@ import java.io.File;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Selenide.*;
 
-public class GoogleTestWithDocker {
+public class SearchTestWithFirefox {
   @Rule
-  public BrowserWebDriverContainer chrome =
+  public BrowserWebDriverContainer browser =
       new BrowserWebDriverContainer()
           .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("build"))
-          .withCapabilities(DesiredCapabilities.chrome());
+          .withCapabilities(DesiredCapabilities.firefox());
 
   @Before
   public void setUp() {
-    RemoteWebDriver driver = chrome.getWebDriver();
+    RemoteWebDriver driver = browser.getWebDriver();
+    System.out.println(browser.getVncAddress());
     WebDriverRunner.setWebDriver(driver);
   }
 
@@ -36,16 +36,8 @@ public class GoogleTestWithDocker {
 
   @Test
   public void search() {
-    open("https://google.com/ncr");
-    $(By.name("q")).val("Selenide").pressEnter();
-    $$("#res .g").shouldHave(sizeGreaterThan(3));
-
-    for (int i = 0; i < 3; i++) {
-      SelenideElement link = $("#res .g", i).find("a");
-      System.out.println(link.attr("href"));
-      link.click();
-      back();
-    }
-    sleep(1000);
+    open("https://duckduckgo.com/");
+    $(By.name("q")).val("codeborne").pressEnter();
+    $$(".results .result").shouldHave(sizeGreaterThan(5));
   }
 }

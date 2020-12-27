@@ -15,7 +15,7 @@ import org.testcontainers.containers.BrowserWebDriverContainer;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Selenide.*;
 
-public class GoogleTestWithDockerNoVideo {
+public class SearchTestWithDockerNoVideo {
   @Rule
   public BrowserWebDriverContainer chrome =
       new BrowserWebDriverContainer()
@@ -34,12 +34,12 @@ public class GoogleTestWithDockerNoVideo {
 
   @Test
   public void search() {
-    open("https://google.com/ncr");
+    open("https://duckduckgo.com/");
     $(By.name("q")).val("Selenide").pressEnter();
-    $$("#res .g").shouldHave(sizeGreaterThan(3));
+    $$(".results .result").shouldHave(sizeGreaterThan(3));
 
     for (int i = 0; i < 3; i++) {
-      SelenideElement link = $("#res .g", i).find("a");
+      SelenideElement link = $(".results .result", i).find("a");
       System.out.println(link.attr("href"));
       link.click();
       back();
