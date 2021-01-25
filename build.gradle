@@ -5,7 +5,7 @@ defaultTasks 'clean', 'test'
 dependencies {
   testCompile 'junit:junit:4.13.1'
   testCompile 'org.testng:testng:7.3.0'
-  testCompile 'com.codeborne:selenide:5.17.4'
+  testCompile 'com.codeborne:selenide:5.18.0'
   testRuntime 'org.slf4j:slf4j-simple:1.7.30'
   testRuntime 'com.browserup:browserup-proxy-core:2.1.2'
   testCompile 'org.testcontainers:selenium:1.15.1'
