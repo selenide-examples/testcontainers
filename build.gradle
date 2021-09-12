@@ -33,4 +33,8 @@ test {
     'selenide.browser': 'chrome',
     'BUILD_URL': System.getenv()['BUILD_URL'],
   ]
+  testLogging {
+    outputs.upToDateWhen {false}
+    showStandardStreams = true
+  }
 }
