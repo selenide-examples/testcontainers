@@ -45,12 +45,14 @@ public class DownloadTestWithDockerAndProxy {
 
     @Before
     public void setUp() {
-        Configuration.proxyHost = "host.testcontainers.internal";
-        Configuration.proxyPort = proxyPort;
         Configuration.proxyEnabled = true;
         Configuration.fileDownload = PROXY;
 
-        proxyServer = new SelenideProxyServer(new SelenideConfig(), null);
+        SelenideConfig config = new SelenideConfig()
+            .proxyHost("host.testcontainers.internal")
+            .proxyPort(proxyPort)
+            .proxyEnabled(true);
+        proxyServer = new SelenideProxyServer(config, null);
         proxyServer.start();
 
         RemoteWebDriver driver = chrome.getWebDriver();
