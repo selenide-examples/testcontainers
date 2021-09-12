@@ -1,14 +1,14 @@
 package org.selenide.examples;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.FileDownloadMode;
+import com.codeborne.selenide.SelenideConfig;
 import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.impl.StaticConfig;
 import com.codeborne.selenide.proxy.SelenideProxyServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -50,7 +50,7 @@ public class DownloadTestWithDockerAndProxy {
         Configuration.proxyEnabled = true;
         Configuration.fileDownload = PROXY;
 
-        proxyServer = new SelenideProxyServer(new StaticConfig(), null);
+        proxyServer = new SelenideProxyServer(new SelenideConfig(), null);
         proxyServer.start();
 
         RemoteWebDriver driver = chrome.getWebDriver();
@@ -59,9 +59,9 @@ public class DownloadTestWithDockerAndProxy {
 
     @Test
     public void search() throws FileNotFoundException {
-        open("https://mvnrepository.com/artifact/com.codeborne/selenide/5.17.0");
+        open("https://mvnrepository.com/artifact/com.codeborne/selenide/5.24.2");
 
-        File selenideJar = $("table.grid a.vbtn").download(withName("selenide-5.17.0.jar"));
+        File selenideJar = $("#maincontent .grid ").find(By.linkText("jar")).download(withName("selenide-5.24.2.jar"));
         assertTrue(selenideJar.exists());
     }
 

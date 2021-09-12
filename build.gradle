@@ -5,10 +5,10 @@ defaultTasks 'clean', 'test'
 dependencies {
   testImplementation 'junit:junit:4.13.2'
   testImplementation 'org.testng:testng:7.4.0'
-  testImplementation 'com.codeborne:selenide:5.22.0'
-  testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.30'
+  testImplementation 'com.codeborne:selenide:5.24.2'
+  testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.32'
   testRuntimeOnly 'com.browserup:browserup-proxy-core:2.1.2'
-  testImplementation 'org.testcontainers:selenium:1.15.3'
+  testImplementation 'org.testcontainers:selenium:1.16.0'
 }
 
 task libs(type: Sync) {
