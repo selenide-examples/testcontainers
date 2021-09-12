@@ -20,6 +20,8 @@ import java.io.FileNotFoundException;
 
 import static com.codeborne.selenide.FileDownloadMode.HTTPGET;
 import static com.codeborne.selenide.FileDownloadMode.PROXY;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.files.FileFilters.withName;
@@ -63,7 +65,7 @@ public class DownloadTestWithDockerAndProxy {
     public void search() throws FileNotFoundException {
         open("https://mvnrepository.com/artifact/com.codeborne/selenide/5.24.2");
 
-        File selenideJar = $("#maincontent .grid ").find(By.linkText("jar")).download(withName("selenide-5.24.2.jar"));
+        File selenideJar = $("#maincontent .grid").find(withText("jar")).download(withName("selenide-5.24.2.jar"));
         assertTrue(selenideJar.exists());
     }
 
