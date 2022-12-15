@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
@@ -20,7 +21,7 @@ public class SearchTestWithFirefox {
   public BrowserWebDriverContainer browser =
       new BrowserWebDriverContainer()
           .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("build"))
-          .withCapabilities(DesiredCapabilities.firefox());
+          .withCapabilities(new FirefoxOptions());
 
   @Before
   public void setUp() {

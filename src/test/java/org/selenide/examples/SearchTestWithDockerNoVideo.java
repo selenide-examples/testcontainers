@@ -1,6 +1,5 @@
 package org.selenide.examples;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.After;
@@ -8,7 +7,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 
@@ -19,7 +18,7 @@ public class SearchTestWithDockerNoVideo {
   @Rule
   public BrowserWebDriverContainer chrome =
       new BrowserWebDriverContainer()
-          .withCapabilities(DesiredCapabilities.chrome());
+          .withCapabilities(new ChromeOptions());
 
   @Before
   public void setUp() {
