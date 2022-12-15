@@ -3,7 +3,7 @@ package org.selenide.examples.testng;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.By;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -22,7 +22,7 @@ public class SearchTestWithDockerTestNG {
   public BrowserWebDriverContainer chrome =
       new BrowserWebDriverContainer()
           .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("build"))
-          .withCapabilities(DesiredCapabilities.chrome());
+          .withCapabilities(new ChromeOptions());
 
   @BeforeClass
   public void startContainer() {

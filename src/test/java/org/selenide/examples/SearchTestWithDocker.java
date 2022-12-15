@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 
@@ -21,7 +21,7 @@ public class SearchTestWithDocker {
   public BrowserWebDriverContainer chrome =
       new BrowserWebDriverContainer()
           .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("build"))
-          .withCapabilities(DesiredCapabilities.chrome());
+          .withCapabilities(new ChromeOptions());
 
   @Before
   public void setUp() {
