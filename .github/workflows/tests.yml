@@ -22,12 +22,29 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: gradle
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+    - name: Build & test
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: build --info
     - uses: actions/upload-artifact@v3
       if: failure()
       with:
         name: test-report
         path: ./**/build/reports/
+
+  auto-merge-dependabot:
+    name: 🤖 Auto merge dependabot PR
+    timeout-minutes: 10
+    needs: build
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - name: 🤖 Merge PR from dependabot
+        uses: fastify/github-action-merge-dependabot@v3.6.2
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          target: minor
+          merge-method: rebase
