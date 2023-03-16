@@ -5,21 +5,14 @@ defaultTasks 'clean', 'test'
 dependencies {
   testImplementation 'junit:junit:4.13.2'
   testImplementation 'org.testng:testng:7.7.1'
-  testImplementation 'com.codeborne:selenide:6.12.3'
+  testImplementation 'com.codeborne:selenide-proxy:6.12.3'
   testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.6'
-  testRuntimeOnly 'com.browserup:browserup-proxy-core:2.1.2'
   testImplementation 'org.testcontainers:selenium:1.17.6'
 }
 
-task libs(type: Sync) {
-  from configurations.testRuntimeClasspath
-  into "$buildDir/lib"
-}
-
-compileJava.dependsOn libs
-
 repositories {
   mavenCentral()
+  mavenLocal()
 }
 
 [compileJava, compileTestJava]*.options.collect {options -> options.encoding = 'UTF-8'}
