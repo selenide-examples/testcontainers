@@ -17,11 +17,13 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.back;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
+import static org.selenide.examples.Abi.chromeImage;
+import static org.testcontainers.containers.BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL;
 
 public class SearchTestWithDockerTestNG {
   public BrowserWebDriverContainer chrome =
-      new BrowserWebDriverContainer()
-          .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("build"))
+      new BrowserWebDriverContainer(chromeImage())
+          .withRecordingMode(RECORD_ALL, new File("build"))
           .withCapabilities(new ChromeOptions());
 
   @BeforeClass

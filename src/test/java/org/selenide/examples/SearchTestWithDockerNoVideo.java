@@ -17,11 +17,12 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.back;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
+import static org.selenide.examples.Abi.chromeImage;
 
 public class SearchTestWithDockerNoVideo {
   @Rule
   public BrowserWebDriverContainer chrome =
-      new BrowserWebDriverContainer()
+      new BrowserWebDriverContainer(chromeImage())
           .withCapabilities(new ChromeOptions());
 
   @Before

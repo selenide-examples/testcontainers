@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -20,12 +19,12 @@ import java.io.FileNotFoundException;
 
 import static com.codeborne.selenide.FileDownloadMode.HTTPGET;
 import static com.codeborne.selenide.FileDownloadMode.PROXY;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.files.FileFilters.withName;
 import static org.junit.Assert.assertTrue;
+import static org.selenide.examples.Abi.chromeImage;
 
 public class DownloadTestWithDockerAndProxy {
 
@@ -40,7 +39,7 @@ public class DownloadTestWithDockerAndProxy {
     //if your baseUrl is http, you'll need to use new Proxy().setHttpProxy
     @Rule
     public BrowserWebDriverContainer chrome =
-            new BrowserWebDriverContainer()
+            new BrowserWebDriverContainer(chromeImage())
                     .withCapabilities(new ChromeOptions().setProxy(new Proxy()
                             .setSslProxy("host.testcontainers.internal:" + proxyPort))
                             .setAcceptInsecureCerts(true));
