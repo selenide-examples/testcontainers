@@ -17,64 +17,82 @@ import org.testcontainers.containers.BrowserWebDriverContainer;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.FileDownloadMode.HTTPGET;
 import static com.codeborne.selenide.FileDownloadMode.PROXY;
-import static com.codeborne.selenide.Selectors.withText;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.files.FileFilters.withName;
-import static org.junit.Assert.assertTrue;
+import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.files.FileFilters.withExtension;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.selenide.examples.Abi.chromeImage;
+import static org.selenide.examples.Abi.showUsersByTag;
 
 public class DownloadTestWithDockerAndProxy {
 
-    private static final int proxyPort = 8864;
+  private static final int proxyPort = 8864;
 
-    private SelenideProxyServer proxyServer;
+  private SelenideProxyServer proxyServer;
 
-    static {
-        Testcontainers.exposeHostPorts(proxyPort);
-    }
+  static {
+    Testcontainers.exposeHostPorts(proxyPort);
+  }
 
-    //if your baseUrl is http, you'll need to use new Proxy().setHttpProxy
-    @Rule
-    public BrowserWebDriverContainer chrome =
-            new BrowserWebDriverContainer(chromeImage())
-                    .withCapabilities(new ChromeOptions().setProxy(new Proxy()
-                            .setSslProxy("host.testcontainers.internal:" + proxyPort))
-                            .setAcceptInsecureCerts(true));
+  @Rule
+  public BrowserWebDriverContainer chrome =
+    new BrowserWebDriverContainer(chromeImage())
+      .withCapabilities(new ChromeOptions().setProxy(new Proxy()
+          .setSslProxy("host.testcontainers.internal:" + proxyPort))
+        .setAcceptInsecureCerts(true));
 
-    @Before
-    public void setUp() {
-        Configuration.proxyEnabled = true;
-        Configuration.fileDownload = PROXY;
+  @Before
+  public void setUp() {
+    Configuration.proxyEnabled = true;
+    Configuration.fileDownload = PROXY;
 
-        SelenideConfig config = new SelenideConfig()
-            .proxyHost("host.testcontainers.internal")
-            .proxyPort(proxyPort)
-            .proxyEnabled(true);
-        proxyServer = new SelenideProxyServer(config, null);
-        proxyServer.start();
+    SelenideConfig config = new SelenideConfig()
+      .proxyHost("host.testcontainers.internal")
+      .proxyPort(proxyPort)
+      .proxyEnabled(true);
+    proxyServer = new SelenideProxyServer(config, null);
+    proxyServer.start();
 
-        RemoteWebDriver driver = chrome.getWebDriver();
-        WebDriverRunner.setWebDriver(driver, proxyServer);
-    }
+    RemoteWebDriver driver = chrome.getWebDriver();
+    WebDriverRunner.setWebDriver(driver, proxyServer);
+  }
 
-    @Test
-    public void search() throws FileNotFoundException {
-        open("https://mvnrepository.com/artifact/com.codeborne/selenide/5.24.2");
+  @Test
+  public void showSelenideUsers() {
+    open("https://selenide.org/users.html");
+    $("h3").shouldHave(text("Selenide users"));
+    $$("#user-tags .tag").shouldHave(sizeGreaterThan(10));
 
-        File selenideJar = $("#maincontent .grid").find(withText("jar")).download(withName("selenide-5.24.2.jar"));
-        assertTrue(selenideJar.exists());
-    }
+    showUsersByTag("usa", 20);
+    showUsersByTag("europe", 16);
+    showUsersByTag("estonia", 14);
+    showUsersByTag("ukraine", 6);
 
-    @After
-    public void tearDown() {
-        proxyServer.shutdown();
-        WebDriverRunner.closeWebDriver();
-        Configuration.fileDownload = HTTPGET;
-        Configuration.proxyEnabled = false;
-        Configuration.proxyHost = null;
-        Configuration.proxyPort = 0;
-    }
+    sleep(1000);
+  }
+
+  @Test
+  public void canDownloadFile() throws FileNotFoundException {
+    open("https://selenide.org/quick-start.html");
+
+    File selenideJar = $(byText("selenide.jar")).download(withExtension("jar"));
+    assertThat(selenideJar.getName()).matches("selenide-[\\d.]+\\.jar");
+  }
+
+  @After
+  public void tearDown() {
+    proxyServer.shutdown();
+    WebDriverRunner.closeWebDriver();
+    Configuration.fileDownload = HTTPGET;
+    Configuration.proxyEnabled = false;
+    Configuration.proxyHost = null;
+    Configuration.proxyPort = 0;
+  }
 }

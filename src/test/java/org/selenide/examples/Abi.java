@@ -5,6 +5,12 @@ import org.testcontainers.utility.DockerImageName;
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byTagAndText;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
+
 public class Abi {
   @Nonnull
   @CheckReturnValue
@@ -26,6 +32,12 @@ public class Abi {
 
   private static boolean isArmArchitecture() {
     return System.getProperty("os.arch").equals("aarch64");
+  }
+
+  public static void showUsersByTag(String tag, int expectedMinimumUsersCount) {
+    $("#user-tags").$(byTagAndText("a", tag)).click();
+    $$("#selenide-users .user").filter(visible)
+      .shouldHave(sizeGreaterThanOrEqual(expectedMinimumUsersCount));
   }
 
 }
