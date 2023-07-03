@@ -2,10 +2,14 @@ apply plugin: 'java'
 
 defaultTasks 'clean', 'test'
 
+ext {
+  selenideVersion = '6.16.0'
+}
+
 dependencies {
   testImplementation 'junit:junit:4.13.2'
   testImplementation 'org.testng:testng:7.8.0'
-  testImplementation 'com.codeborne:selenide-proxy:6.15.0'
+  testImplementation "com.codeborne:selenide-proxy:$selenideVersion"
   testImplementation 'org.assertj:assertj-core:3.24.2'
   testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.7'
   testImplementation 'org.testcontainers:selenium:1.18.3'
