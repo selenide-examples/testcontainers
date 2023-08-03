@@ -3,7 +3,7 @@ apply plugin: 'java'
 defaultTasks 'clean', 'test'
 
 ext {
-  selenideVersion = '6.16.1'
+  selenideVersion = '6.17.0'
 }
 
 dependencies {
