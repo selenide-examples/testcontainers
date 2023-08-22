@@ -1,13 +1,14 @@
 package org.selenide.examples;
 
 import com.codeborne.selenide.WebDriverRunner;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
 
@@ -21,21 +22,22 @@ import static org.selenide.examples.Abi.chromeImage;
 import static org.selenide.examples.Abi.showUsersByTag;
 import static org.testcontainers.containers.BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL;
 
+@Testcontainers
 public class SearchTestWithDocker {
 
-  @Rule
+  @Container
   public BrowserWebDriverContainer chrome =
     new BrowserWebDriverContainer(chromeImage())
       .withRecordingMode(RECORD_ALL, new File("build"))
       .withCapabilities(new ChromeOptions());
 
-  @Before
+  @BeforeEach
   public void setUp() {
     RemoteWebDriver driver = chrome.getWebDriver();
     WebDriverRunner.setWebDriver(driver);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     WebDriverRunner.closeWebDriver();
   }

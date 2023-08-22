@@ -4,15 +4,18 @@ defaultTasks 'clean', 'test'
 
 ext {
   selenideVersion = '6.17.1'
+  testcontainersVersion = '1.19.0'
+  junitVersion = '5.10.0'
 }
 
 dependencies {
-  testImplementation 'junit:junit:4.13.2'
+  testImplementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
   testImplementation 'org.testng:testng:7.8.0'
-  testImplementation "com.codeborne:selenide-proxy:$selenideVersion"
+  testImplementation("com.codeborne:selenide-proxy:$selenideVersion")
   testImplementation 'org.assertj:assertj-core:3.24.2'
   testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.7'
-  testImplementation 'org.testcontainers:selenium:1.19.0'
+  testImplementation("org.testcontainers:junit-jupiter:$testcontainersVersion") { exclude group: 'junit' }
+  testImplementation("org.testcontainers:selenium:$testcontainersVersion") { exclude group: 'junit' }
 }
 
 repositories {
@@ -26,6 +29,7 @@ repositories {
 [compileJava, compileTestJava]*.targetCompatibility = 11
 
 test {
+  useJUnitPlatform()
   systemProperties = [
     'file.encoding': 'UTF-8',
     'selenide.browser': 'chrome',
