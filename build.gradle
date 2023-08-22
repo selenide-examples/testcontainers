@@ -12,7 +12,7 @@ dependencies {
   testImplementation "com.codeborne:selenide-proxy:$selenideVersion"
   testImplementation 'org.assertj:assertj-core:3.24.2'
   testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.7'
-  testImplementation 'org.testcontainers:selenium:1.18.3'
+  testImplementation 'org.testcontainers:selenium:1.19.0'
 }
 
 repositories {
