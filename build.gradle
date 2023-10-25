@@ -3,7 +3,7 @@ apply plugin: 'java'
 defaultTasks 'clean', 'test'
 
 ext {
-  selenideVersion = '6.19.1'
+  selenideVersion = '7.0.0'
   testcontainersVersion = '1.19.1'
   junitVersion = '5.10.0'
 }
@@ -25,8 +25,8 @@ repositories {
 
 [compileJava, compileTestJava]*.options.collect {options -> options.encoding = 'UTF-8'}
 [compileJava, compileTestJava]*.options.collect {options -> options.debug = true}
-[compileJava, compileTestJava]*.sourceCompatibility = 11
-[compileJava, compileTestJava]*.targetCompatibility = 11
+[compileJava, compileTestJava]*.sourceCompatibility = 17
+[compileJava, compileTestJava]*.targetCompatibility = 17
 
 test {
   useJUnitPlatform()
