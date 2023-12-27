@@ -10,7 +10,7 @@ ext {
 
 dependencies {
   testImplementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-  testImplementation 'org.testng:testng:7.8.0'
+  testImplementation 'org.testng:testng:7.9.0'
   testImplementation("com.codeborne:selenide-proxy:$selenideVersion")
   testImplementation 'org.assertj:assertj-core:3.24.2'
   testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.9'
