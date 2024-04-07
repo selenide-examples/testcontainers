@@ -9,17 +9,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chromium.ChromiumOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testcontainers.Testcontainers;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.FileDownloadMode.HTTPGET;
 import static com.codeborne.selenide.FileDownloadMode.PROXY;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -31,23 +30,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.selenide.examples.Abi.chromeImage;
 import static org.selenide.examples.Abi.showUsersByTag;
 
-@org.testcontainers.junit.jupiter.Testcontainers
-class DownloadTestWithDockerAndProxy {
+@Testcontainers
+class DownloadWithProxyTest {
 
   private static final int proxyPort = 8864;
 
   private SelenideProxyServer proxyServer;
 
   static {
-    Testcontainers.exposeHostPorts(proxyPort);
+    org.testcontainers.Testcontainers.exposeHostPorts(proxyPort);
   }
 
+  private static final ChromiumOptions<?> chromeOptions = new ChromeOptions()
+    .setProxy(new Proxy().setSslProxy("host.testcontainers.internal:" + proxyPort))
+    .setAcceptInsecureCerts(true);
+
   @Container
-  public BrowserWebDriverContainer chrome =
-    new BrowserWebDriverContainer(chromeImage())
-      .withCapabilities(new ChromeOptions().setProxy(new Proxy()
-          .setSslProxy("host.testcontainers.internal:" + proxyPort))
-        .setAcceptInsecureCerts(true));
+  public BrowserWebDriverContainer<?> chrome =
+    new BrowserWebDriverContainer<>(chromeImage()).withCapabilities(chromeOptions);
 
   @BeforeEach
   public void setUp() {
@@ -61,7 +61,7 @@ class DownloadTestWithDockerAndProxy {
     proxyServer = new SelenideProxyServer(config, null);
     proxyServer.start();
 
-    RemoteWebDriver driver = chrome.getWebDriver();
+    RemoteWebDriver driver = new RemoteWebDriver(chrome.getSeleniumAddress(), chromeOptions, false);
     WebDriverRunner.setWebDriver(driver, proxyServer);
   }
 
@@ -80,7 +80,7 @@ class DownloadTestWithDockerAndProxy {
   }
 
   @Test
-  public void canDownloadFile() throws FileNotFoundException {
+  public void canDownloadFile() {
     open("https://selenide.org/quick-start.html");
 
     File selenideJar = $(byText("selenide.jar")).download(withExtension("jar"));
@@ -90,10 +90,5 @@ class DownloadTestWithDockerAndProxy {
   @AfterEach
   public void tearDown() {
     proxyServer.shutdown();
-    WebDriverRunner.closeWebDriver();
-    Configuration.fileDownload = HTTPGET;
-    Configuration.proxyEnabled = false;
-    Configuration.proxyHost = null;
-    Configuration.proxyPort = 0;
   }
 }
