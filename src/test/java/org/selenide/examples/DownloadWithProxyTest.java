@@ -29,6 +29,7 @@ import static com.codeborne.selenide.files.FileFilters.withExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.selenide.examples.Abi.chromeImage;
 import static org.selenide.examples.Abi.showUsersByTag;
+import static org.selenide.examples.CdpUrl.makeCdpAvailableOnHostMachine;
 
 @Testcontainers
 class DownloadWithProxyTest {
@@ -62,6 +63,7 @@ class DownloadWithProxyTest {
     proxyServer.start();
 
     RemoteWebDriver driver = new RemoteWebDriver(chrome.getSeleniumAddress(), chromeOptions, false);
+    makeCdpAvailableOnHostMachine(chrome, driver);
     WebDriverRunner.setWebDriver(driver, proxyServer);
   }
 

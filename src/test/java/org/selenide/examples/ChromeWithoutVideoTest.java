@@ -17,17 +17,17 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
 import static org.selenide.examples.Abi.chromeImage;
 import static org.selenide.examples.Abi.showUsersByTag;
+import static org.selenide.examples.CdpUrl.makeCdpAvailableOnHostMachine;
 
 @Testcontainers
-public class SearchTestWithDockerNoVideo {
+public class ChromeWithoutVideoTest {
   @Container
-  public BrowserWebDriverContainer chrome =
-    new BrowserWebDriverContainer(chromeImage())
-      .withCapabilities(new ChromeOptions());
+  public BrowserWebDriverContainer<?> chrome = new BrowserWebDriverContainer<>(chromeImage());
 
   @BeforeEach
   public void setUp() {
-    RemoteWebDriver driver = chrome.getWebDriver();
+    RemoteWebDriver driver = new RemoteWebDriver(chrome.getSeleniumAddress(), new ChromeOptions(), false);
+    makeCdpAvailableOnHostMachine(chrome, driver);
     WebDriverRunner.setWebDriver(driver);
   }
 

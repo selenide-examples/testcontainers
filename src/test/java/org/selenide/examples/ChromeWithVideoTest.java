@@ -19,20 +19,21 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
 import static org.selenide.examples.Abi.chromeImage;
 import static org.selenide.examples.Abi.showUsersByTag;
+import static org.selenide.examples.CdpUrl.makeCdpAvailableOnHostMachine;
 import static org.testcontainers.containers.BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL;
+import static org.testcontainers.containers.VncRecordingContainer.VncRecordingFormat.MP4;
 
 @Testcontainers
-public class SearchTestWithDocker {
+public class ChromeWithVideoTest {
 
   @Container
-  public BrowserWebDriverContainer chrome =
-    new BrowserWebDriverContainer(chromeImage())
-      .withRecordingMode(RECORD_ALL, new File("build"))
-      .withCapabilities(new ChromeOptions());
+  public BrowserWebDriverContainer<?> chrome = new BrowserWebDriverContainer<>(chromeImage())
+      .withRecordingMode(RECORD_ALL, new File("build"), MP4);
 
   @BeforeEach
   public void setUp() {
-    RemoteWebDriver driver = chrome.getWebDriver();
+    RemoteWebDriver driver = new RemoteWebDriver(chrome.getSeleniumAddress(), new ChromeOptions(), false);
+    makeCdpAvailableOnHostMachine(chrome, driver);
     WebDriverRunner.setWebDriver(driver);
   }
 
