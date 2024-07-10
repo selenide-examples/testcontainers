@@ -13,7 +13,7 @@ dependencies {
   testImplementation 'org.testng:testng:7.10.2'
   testImplementation("com.codeborne:selenide-proxy:$selenideVersion")
   testImplementation "com.codeborne:selenide-full-screenshot:$selenideVersion"
-  testImplementation 'org.assertj:assertj-core:3.26.0'
+  testImplementation 'org.assertj:assertj-core:3.26.3'
   testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.13'
   testImplementation("org.testcontainers:junit-jupiter:$testcontainersVersion")
   testImplementation("org.testcontainers:selenium:$testcontainersVersion")
