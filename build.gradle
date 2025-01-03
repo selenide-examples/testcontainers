@@ -17,7 +17,7 @@ dependencies {
   testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.16'
   testImplementation("org.testcontainers:junit-jupiter:$testcontainersVersion")
   testImplementation("org.testcontainers:selenium:$testcontainersVersion")
-  testImplementation("org.mockito:mockito-core:5.14.2")
+  testImplementation("org.mockito:mockito-core:5.15.2")
 }
 
 repositories {
