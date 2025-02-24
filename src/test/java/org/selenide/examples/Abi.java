@@ -2,9 +2,6 @@ package org.selenide.examples;
 
 import org.testcontainers.utility.DockerImageName;
 
-import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byTagAndText;
@@ -12,8 +9,6 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class Abi {
-  @Nonnull
-  @CheckReturnValue
   public static DockerImageName chromeImage() {
     return isArmArchitecture() ?
       DockerImageName.parse("seleniarm/standalone-chromium")
@@ -21,8 +16,6 @@ public class Abi {
       DockerImageName.parse("selenium/standalone-chrome");
   }
 
-  @Nonnull
-  @CheckReturnValue
   public static DockerImageName firefoxImage() {
     return isArmArchitecture() ?
       DockerImageName.parse("seleniarm/standalone-firefox")
@@ -39,5 +32,4 @@ public class Abi {
     $$("#selenide-users .user").filter(visible)
       .shouldHave(sizeGreaterThanOrEqual(expectedMinimumUsersCount));
   }
-
 }

@@ -14,6 +14,7 @@ import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
 import static org.selenide.examples.Abi.chromeImage;
@@ -39,7 +40,7 @@ public class TestWithDockerTestNG {
 
   @AfterClass
   public void stopContainer() {
-    WebDriverRunner.closeWebDriver();
+    closeWebDriver();
     chrome.stop();
   }
 
