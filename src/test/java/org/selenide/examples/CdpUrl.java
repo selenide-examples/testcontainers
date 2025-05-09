@@ -24,9 +24,15 @@ public class CdpUrl {
   public static void makeCdpAvailableOnHostMachine(ContainerState container, RemoteWebDriver driver) {
     MutableCapabilities capabilities = (MutableCapabilities) driver.getCapabilities();
     String currentCdpUrl = (String) capabilities.getCapability("se:cdp");
-    String cdpUrlForHostMachine = cdpUrlForHostMachine(currentCdpUrl, container);
-    capabilities.setCapability("se:cdp", cdpUrlForHostMachine);
-    log.info("Replaced CDP url {} by {}", currentCdpUrl, cdpUrlForHostMachine);
+    if (currentCdpUrl == null) {
+      log.warn("Alarm! CDP url is null. Webdriver: {}. Capabilities: {}. Container: {}:{}",
+        driver, capabilities, container.getHost(), container.getMappedPort(4444));
+    }
+    else {
+      String cdpUrlForHostMachine = cdpUrlForHostMachine(currentCdpUrl, container);
+      capabilities.setCapability("se:cdp", cdpUrlForHostMachine);
+      log.info("Replaced CDP url {} by {}", currentCdpUrl, cdpUrlForHostMachine);
+    }
   }
 
   static String cdpUrlForHostMachine(String cdpUrlInsideDocker, ContainerState container) {
