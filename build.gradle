@@ -6,7 +6,7 @@ ext {
   selenideVersion = '7.9.3'
   testcontainersVersion = '1.21.3'
   junitVersion = '5.13.2'
-  junitPlatformVersion = '1.13.2'
+  junitPlatformVersion = '1.13.3'
 }
 
 dependencies {
