@@ -3,7 +3,7 @@ apply plugin: 'java'
 defaultTasks 'clean', 'test'
 
 ext {
-  selenideVersion = '7.9.3'
+  selenideVersion = '7.9.4'
   testcontainersVersion = '1.21.3'
   junitVersion = '5.13.2'
   junitPlatformVersion = '1.13.2'
