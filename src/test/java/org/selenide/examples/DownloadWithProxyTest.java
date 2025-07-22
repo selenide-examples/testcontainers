@@ -1,5 +1,6 @@
 package org.selenide.examples;
 
+import com.codeborne.pdftest.PDF;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideConfig;
 import com.codeborne.selenide.WebDriverRunner;
@@ -16,7 +17,9 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
+import java.io.IOException;
 
+import static com.codeborne.pdftest.assertj.Assertions.assertThat;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.FileDownloadMode.PROXY;
@@ -26,7 +29,6 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.files.FileFilters.withExtension;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.selenide.examples.Abi.chromeImage;
 import static org.selenide.examples.Abi.showUsersByTag;
 import static org.selenide.examples.CdpUrl.makeCdpAvailableOnHostMachine;
@@ -82,11 +84,12 @@ class DownloadWithProxyTest {
   }
 
   @Test
-  public void canDownloadFile() {
-    open("https://selenide.org/quick-start.html");
+  public void canDownloadFile() throws IOException {
+    open("https://selenide.org/test-page/download.html");
 
-    File selenideJar = $(byText("selenide.jar")).download(withExtension("jar"));
-    assertThat(selenideJar.getName()).matches("selenide-[\\d.]+\\.jar");
+    File downloadedFile = $(byText("hello-world.pdf")).download(withExtension("pdf"));
+    assertThat(downloadedFile.getName()).isEqualTo("hello-world.pdf");
+    assertThat(new PDF(downloadedFile)).containsText("Hello World");
   }
 
   @AfterEach
