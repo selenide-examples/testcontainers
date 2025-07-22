@@ -5,12 +5,11 @@ defaultTasks 'clean', 'test'
 ext {
   selenideVersion = '7.9.4'
   testcontainersVersion = '1.21.3'
-  junitVersion = '5.13.4'
   junitPlatformVersion = '1.13.4'
 }
 
 dependencies {
-  testImplementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+  testImplementation "org.junit.jupiter:junit-jupiter-engine:5.13.4"
   testImplementation "org.junit.platform:junit-platform-engine:$junitPlatformVersion"
   testImplementation "org.junit.platform:junit-platform-launcher:$junitPlatformVersion"
 
