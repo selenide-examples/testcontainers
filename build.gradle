@@ -6,7 +6,7 @@ ext {
   selenideVersion = '7.9.4'
   testcontainersVersion = '1.21.3'
   junitVersion = '5.13.4'
-  junitPlatformVersion = '1.13.3'
+  junitPlatformVersion = '1.13.4'
 }
 
 dependencies {
@@ -17,6 +17,7 @@ dependencies {
   testImplementation 'org.testng:testng:7.11.0'
   testImplementation("com.codeborne:selenide-proxy:$selenideVersion")
   testImplementation "com.codeborne:selenide-full-screenshot:$selenideVersion"
+  implementation 'com.codeborne:pdf-test:2.0.0'
   testImplementation 'org.assertj:assertj-core:3.27.3'
   testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.17'
   testImplementation("org.testcontainers:junit-jupiter:$testcontainersVersion")
