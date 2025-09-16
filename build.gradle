@@ -3,7 +3,7 @@ apply plugin: 'java'
 defaultTasks 'clean', 'test'
 
 ext {
-  selenideVersion = '7.10.0'
+  selenideVersion = '7.10.1'
   testcontainersVersion = '1.21.3'
   junitPlatformVersion = '1.13.4'
 }
@@ -14,6 +14,7 @@ dependencies {
   testImplementation "org.junit.platform:junit-platform-launcher:$junitPlatformVersion"
 
   testImplementation 'org.testng:testng:7.11.0'
+  testImplementation("com.codeborne:selenide-appium:$selenideVersion")
   testImplementation("com.codeborne:selenide-proxy:$selenideVersion")
   testImplementation "com.codeborne:selenide-full-screenshot:$selenideVersion"
   implementation 'com.codeborne:pdf-test:2.0.0'
