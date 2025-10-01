@@ -5,13 +5,13 @@ defaultTasks 'clean', 'test'
 ext {
   selenideVersion = '7.10.1'
   testcontainersVersion = '1.21.3'
-  junitPlatformVersion = '6.0.0'
+  junitVersion = '6.0.0'
 }
 
 dependencies {
-  testImplementation "org.junit.jupiter:junit-jupiter-engine:6.0.0"
-  testImplementation "org.junit.platform:junit-platform-engine:$junitPlatformVersion"
-  testImplementation "org.junit.platform:junit-platform-launcher:$junitPlatformVersion"
+  testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+  testImplementation "org.junit.platform:junit-platform-engine:${junitVersion}"
+  testImplementation "org.junit.platform:junit-platform-launcher:${junitVersion}"
 
   testImplementation 'org.testng:testng:7.11.0'
   testImplementation("com.codeborne:selenide-appium:$selenideVersion")
