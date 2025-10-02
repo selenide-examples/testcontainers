@@ -22,7 +22,7 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
         cache: gradle
-    - uses: gradle/actions/setup-gradle@v4
+    - uses: gradle/actions/setup-gradle@v5
     - name: Build & test
       run: ./gradlew build --info
     - uses: actions/upload-artifact@v4
