@@ -13,7 +13,7 @@ dependencies {
   testImplementation "org.junit.platform:junit-platform-engine:${junitVersion}"
   testImplementation "org.junit.platform:junit-platform-launcher:${junitVersion}"
 
-  testImplementation 'org.testng:testng:7.11.0'
+  testImplementation 'org.testng:testng:7.12.0'
   testImplementation("com.codeborne:selenide-appium:$selenideVersion")
   testImplementation("com.codeborne:selenide-proxy:$selenideVersion")
   testImplementation "com.codeborne:selenide-full-screenshot:$selenideVersion"
