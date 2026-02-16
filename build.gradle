@@ -5,7 +5,7 @@ defaultTasks 'clean', 'test'
 ext {
   selenideVersion = '7.14.0'
   testcontainersVersion = '1.21.4'
-  junitVersion = '6.0.2'
+  junitVersion = '6.0.3'
 }
 
 dependencies {
